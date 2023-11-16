@@ -14,13 +14,23 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import pyautogui
 
-from urllib.request import urlopen
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+
 import re
 import yaml
 from datetime import datetime, timedelta
 
 log = logging.getLogger(__name__)
+
+
+# Setting up driver
+options = webdriver.ChromeOptions()
+executable_path = 'C:/Users/mel/Downloads/chromedriver.exe'
+service = Service(executable_path)
+driver = webdriver.Chrome(service=service, options=options)
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+
 
 # Setting up driver:
 # driver = webdriver.Chrome(ChromeDriverManager().install())
