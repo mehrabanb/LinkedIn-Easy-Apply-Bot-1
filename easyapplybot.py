@@ -4,6 +4,7 @@ import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,8 +21,13 @@ import yaml
 from datetime import datetime, timedelta
 
 log = logging.getLogger(__name__)
-driver = webdriver.Chrome(ChromeDriverManager().install())
 
+# Setting up driver:
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+options = webdriver.ChromeOptions()
+executable_path = 'C://chromedriver.exe'
+service = Service(executable_path)
+driver = webdriver.Chrome(service=service, options=options)
 
 def setupLogger() -> None:
     dt: str = datetime.strftime(datetime.now(), "%m_%d_%y %H_%M_%S ")
@@ -297,7 +303,7 @@ class EasyApplyBot:
                 '//button[contains(@class, "jobs-apply-button")]'
             )
 
-            EasyApplyButton = button[0]
+            EasyApplyButton = button[1]
             
         except Exception as e: 
             print("Exception:",e)
